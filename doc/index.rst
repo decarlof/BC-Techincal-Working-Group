@@ -58,5 +58,6 @@ Content
    source/about
    source/howtos
    source/meetings
+   source/links
    source/examples
    source/credits
