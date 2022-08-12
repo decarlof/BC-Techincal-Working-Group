@@ -1,0 +1,1 @@
+=======Credits=======Citations=========Here is an example of how to add a reference: :cite:`rivers2017areadetector` or :cite:`rivers2010areadetector`... bibliography:: bibtex/cite.bib   :style: plain   :labelprefix: A.. bibliography:: bibtex/ref.bib   :style: plain   :labelprefix: B   :all: 
