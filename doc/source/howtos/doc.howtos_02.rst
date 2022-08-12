@@ -1,4 +1,4 @@
-Update the docs
+Update this doc
 ===============
 
 The documentation of this web site is maintained on `github <https://github.com/>`_ 
