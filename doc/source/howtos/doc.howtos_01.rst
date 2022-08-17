@@ -7,17 +7,21 @@ Step-by-step to configure a FLIR 10Gb camera with an Intel Network adapter:
 
 Prerequisites:
 
-64GB memory
-Cat 6A cable
-Intel X550T2 ETHERNET CONVERGED Network Adapter X550-T2 (available from Sorcium as Part#: 3E9073)
+#. 64GB memory
+#. Cat 6A cable
+#. Intel X550T2 ETHERNET CONVERGED Network Adapter X550-T2 (available from Sorcium as Part#: 3E9073)
 
-1. Enable jumbo packet
-2. Disable DHCP and set a fixed IP address on the Ethernet port connecting to the FLIR
-3. Increase the receive buffer size. 
-4. Increase the Network parameters in the kernel
-5. Set the NIC tx queue length
+.. warning:: The same procedure works also for the latest FLIR supported Myricom ARC Series C-Class network adapter 
 
+Tasks:
 
+#. Enable jumbo packet
+#. Disable DHCP and set a fixed IP address on the Ethernet port connecting to the FLIR
+#. Increase the receive buffer size. 
+#. Increase the Network parameters in the kernel
+#. Set the NIC tx queue length
+
+Description:
 
 1. 2. and 3. are documented at `here <https://www.flir.com/support-center/iis/machine-vision/knowledge-base/lost-ethernet-data-packets-on-linux-systems/>`_
 
@@ -39,7 +43,7 @@ and in the `areadetector doc <https://areadetector.github.io/master/ADGenICam/AD
 Set the NIC as follows::
 
     eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
-        inet 169.254.0.68  netmask 255.255.0.0  broadcast 169.254.255.255
+        inet 169.254.100.68  netmask 255.255.255.0  broadcast 169.254.100.255
         inet6 fe80::260:ddff:fe42:4e2  prefixlen 64  scopeid 0x20<link>
         ether 00:60:dd:42:04:e2  txqueuelen 1000  (Ethernet)
         RX packets 248  bytes 86800 (84.7 KiB)
@@ -49,7 +53,7 @@ Set the NIC as follows::
 
 
     eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9000
-        inet 169.254.0.65  netmask 255.255.0.0  broadcast 169.254.255.255
+        inet 169.254.0.65  netmask 255.255.255.0  broadcast 169.254.0.255
         inet6 fe80::260:ddff:fe42:4e3  prefixlen 64  scopeid 0x20<link>
         ether 00:60:dd:42:04:e3  txqueuelen 1000  (Ethernet)
         RX packets 1273  bytes 445550 (435.1 KiB)
@@ -57,16 +61,25 @@ Set the NIC as follows::
         TX packets 281  bytes 26249 (25.6 KiB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-Then install and run `SpinView <https://flir.app.boxcn.net/v/SpinnakerSDK/folder/68522911814>`_  from FLIR
+After the above tasks are completed we need to configure the camera with a static IP address in the same NIC subnet. To accomplish this task install and run `SpinView <https://flir.app.boxcn.net/v/SpinnakerSDK/folder/68522911814>`_  from FLIR and connect the camera to the same subnet the computer running spinview is connected to, then:
+
 
 .. image:: ../img/spinview_01.png
    :width: 720px
    :align: center
 
+
 .. image:: ../img/spinview_02.png
    :width: 310px
    :align: center
 
+
 .. image:: ../img/spinview_03.png
    :width: 310px
    :align: center
+
+
+.. warning:: After the above configuration is completed power cycle the camera to implement the IP address changes.
+
+
+Reconnect the camera to the NIC on the AreaDetector controller computer an ping to its IP address to confirm the connectivity. The configuration is now complete.
